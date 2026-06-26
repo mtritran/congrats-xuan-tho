@@ -21,8 +21,8 @@
     --secondary: #f472b6;
     --text-main: #f3e8ff;
     --text-muted: #c0b3d6;
-    --card-bg: rgba(17, 10, 28, 0.45);
-    --card-border: rgba(192, 132, 252, 0.15);
+    --card-bg: rgba(17, 10, 28, 0.55);
+    --card-border: rgba(192, 132, 252, 0.18);
     --font-title: 'Outfit', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
   }
@@ -37,15 +37,16 @@
     position: relative;
   }
 
-  /* ── AURORA BACKGROUND ── */
+  /* ── AURORA BACKGROUND (Parallax ready) ── */
   .aurora-bg {
     position: fixed;
-    inset: 0;
+    inset: -50px; /* Slight overflow to handle parallax translate without showing edges */
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
     filter: blur(120px);
-    opacity: 0.5;
+    opacity: 0.55;
+    transition: transform 0.2s ease-out; /* Smooth parallax response */
   }
   .aurora-blob {
     position: absolute;
@@ -54,26 +55,26 @@
     animation: float-blob 22s infinite alternate ease-in-out;
   }
   .aurora-blob-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(0,0,0,0) 70%);
-    top: -10%;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.38) 0%, rgba(0,0,0,0) 70%);
+    top: -5%;
     left: -5%;
     animation-duration: 18s;
   }
   .aurora-blob-2 {
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.28) 0%, rgba(0,0,0,0) 70%);
-    bottom: -15%;
-    right: -10%;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.32) 0%, rgba(0,0,0,0) 70%);
+    bottom: -10%;
+    right: -5%;
     animation-duration: 24s;
     animation-delay: -6s;
   }
   .aurora-blob-3 {
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.22) 0%, rgba(0,0,0,0) 70%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
     top: 35%;
     left: 25%;
     animation-duration: 20s;
@@ -85,11 +86,29 @@
       transform: translate(0, 0) scale(1) rotate(0deg);
     }
     50% {
-      transform: translate(60px, 40px) scale(1.08) rotate(180deg);
+      transform: translate(70px, 50px) scale(1.1) rotate(180deg);
     }
     100% {
-      transform: translate(-30px, -60px) scale(0.92) rotate(360deg);
+      transform: translate(-40px, -70px) scale(0.9) rotate(360deg);
     }
+  }
+
+  /* ── INTERACTIVE MOUSE FOLLOW GLOW ── */
+  .cursor-glow {
+    position: fixed;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(236, 72, 153, 0.03) 40%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  body:hover .cursor-glow {
+    opacity: 1;
   }
 
   /* ── STARS ── */
@@ -108,8 +127,8 @@
     animation: twinkle var(--d, 3s) ease-in-out var(--delay, 0s) infinite;
   }
   @keyframes twinkle {
-    0%, 100% { opacity: 0; transform: scale(0.8); }
-    50%      { opacity: var(--op, 0.6); transform: scale(1.2); }
+    0%, 100% { opacity: 0; transform: scale(0.8) translateY(0); }
+    50%      { opacity: var(--op, 0.6); transform: scale(1.2) translateY(-4px); }
   }
 
   /* ── HERO ── */
@@ -276,9 +295,9 @@
   }
   .milestone-card:hover {
     transform: translateY(-6px);
-    background: rgba(26, 16, 42, 0.55);
-    border-color: rgba(192, 132, 252, 0.35);
-    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    background: rgba(26, 16, 42, 0.65);
+    border-color: rgba(192, 132, 252, 0.45);
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
 
   .milestone-header {
@@ -329,7 +348,7 @@
     aspect-ratio: 16/10;
     border-radius: 14px;
     overflow: hidden;
-    border: 1px solid rgba(192, 132, 252, 0.15);
+    border: 1px solid rgba(192, 132, 252, 0.18);
     background: rgba(12, 6, 20, 0.6);
     position: relative;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
@@ -339,10 +358,10 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .photo-slot:hover img {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
   /* Placeholder */
   .photo-slot .placeholder {
@@ -482,8 +501,11 @@
 
 <canvas id="confetti-canvas"></canvas>
 
+<!-- INTERACTIVE CURSOR GLOW -->
+<div class="cursor-glow" id="cursor-glow"></div>
+
 <!-- AURORA BACKGROUNDS -->
-<div class="aurora-bg">
+<div class="aurora-bg" id="aurora-bg">
   <div class="aurora-blob aurora-blob-1"></div>
   <div class="aurora-blob aurora-blob-2"></div>
   <div class="aurora-blob aurora-blob-3"></div>
@@ -523,12 +545,11 @@
         </div>
         <h3 class="milestone-title">Ngày đầu bước vào giảng đường</h3>
         <p class="milestone-desc">Balo mới, sổ tay mới, và một trái tim đầy háo hức. Đà Nẵng chào đón một sinh viên Kinh tế đầy tiềm năng với những hoài bão lớn.</p>
-        <!-- ĐỔI ẢNH: thay src="" bằng đường dẫn ảnh của bạn, ví dụ src="anh1.jpg" -->
         <div class="photo-slot">
-          <img src="" alt="Ảnh năm nhất">
+          <img src="assets/images/nam-1.jpg" alt="Ảnh năm nhất">
           <div class="placeholder">
             <i data-lucide="camera" class="placeholder-icon"></i>
-            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-1.jpg"</em></span>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="assets/images/nam-1.jpg"</em></span>
           </div>
         </div>
       </div>
@@ -546,12 +567,11 @@
         </div>
         <h3 class="milestone-title">Những đêm thức khuya ôn thi</h3>
         <p class="milestone-desc">Cà phê, bài tập nhóm, deadline chồng deadline. Bạn vẫn kiên cường vượt qua tất cả một cách vô cùng đáng kinh ngạc.</p>
-        <!-- ĐỔI ẢNH: src="anh2.jpg" -->
         <div class="photo-slot">
-          <img src="" alt="Ảnh năm hai">
+          <img src="assets/images/nam-2.jpg" alt="Ảnh năm hai">
           <div class="placeholder">
             <i data-lucide="camera" class="placeholder-icon"></i>
-            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-2.jpg"</em></span>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="assets/images/nam-2.jpg"</em></span>
           </div>
         </div>
       </div>
@@ -569,12 +589,11 @@
         </div>
         <h3 class="milestone-title">Trưởng thành từng ngày</h3>
         <p class="milestone-desc">Kỳ thực tập thử thách, những đồ án chuyên ngành phức tạp và những bài học thực tế quý báu. Bạn dần tìm thấy định hướng rõ nét cho tương lai.</p>
-        <!-- ĐỔI ẢNH: src="anh3.jpg" -->
         <div class="photo-slot">
-          <img src="" alt="Ảnh năm ba">
+          <img src="assets/images/nam-3.jpg" alt="Ảnh năm ba">
           <div class="placeholder">
             <i data-lucide="camera" class="placeholder-icon"></i>
-            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-3.jpg"</em></span>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="assets/images/nam-3.jpg"</em></span>
           </div>
         </div>
       </div>
@@ -592,12 +611,11 @@
         </div>
         <h3 class="milestone-title">Khóa luận & Cán đích</h3>
         <p class="milestone-desc">Những tháng ngày cuối cùng căng thẳng nhất — nhưng bạn đã vượt lên tất cả. Bảo vệ thành công khóa luận và sẵn sàng sải cánh bay xa.</p>
-        <!-- ĐỔI ẢNH: src="anh4.jpg" -->
         <div class="photo-slot">
-          <img src="" alt="Ảnh tốt nghiệp">
+          <img src="assets/images/nam-4.jpg" alt="Ảnh tốt nghiệp">
           <div class="placeholder">
             <i data-lucide="camera" class="placeholder-icon"></i>
-            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-tot-nghiep.jpg"</em></span>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="assets/images/nam-4.jpg"</em></span>
           </div>
         </div>
       </div>
@@ -627,9 +645,24 @@
 // Initialize Lucide Icons
 lucide.createIcons();
 
+// Interactive Cursor Glow & Background Parallax
+const glow = document.getElementById('cursor-glow');
+const auroraBg = document.getElementById('aurora-bg');
+
+document.addEventListener('mousemove', (e) => {
+  // Cursor glow positioning
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+  
+  // Aurora background subtle parallax
+  const x = (window.innerWidth - e.clientX * 2) / 60;
+  const y = (window.innerHeight - e.clientY * 2) / 60;
+  auroraBg.style.transform = `translate(${x}px, ${y}px)`;
+});
+
 // Stars
 const starsEl = document.getElementById('stars');
-for (let i = 0; i < 70; i++) {
+for (let i = 0; i < 75; i++) {
   const s = document.createElement('div');
   s.className = 'star';
   const size = Math.random() * 2.2 + 0.8;
