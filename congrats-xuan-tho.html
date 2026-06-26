@@ -131,6 +131,42 @@
     50%      { opacity: var(--op, 0.6); transform: scale(1.2) translateY(-4px); }
   }
 
+  /* ── MUSIC PLAYER FLOATING CONTROL ── */
+  .music-control {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(17, 10, 28, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .music-control:hover {
+    transform: scale(1.1);
+    background: rgba(25, 15, 40, 0.85);
+    border-color: rgba(192, 132, 252, 0.4);
+    color: var(--secondary);
+    box-shadow: 0 6px 25px rgba(168, 85, 247, 0.3);
+  }
+  .music-control.playing svg {
+    animation: rotate-music 3.5s linear infinite;
+  }
+  @keyframes rotate-music {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
   /* ── HERO ── */
   .hero {
     position: relative;
@@ -504,6 +540,16 @@
 <!-- INTERACTIVE CURSOR GLOW -->
 <div class="cursor-glow" id="cursor-glow"></div>
 
+<!-- AUDIO ELEMENT (Soft copyright-free graduation music) -->
+<audio id="bg-music" loop>
+  <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FLOATING MUSIC BUTTON -->
+<button class="music-control" id="music-btn" title="Bật/Tắt nhạc nhẹ">
+  <i data-lucide="music"></i>
+</button>
+
 <!-- AURORA BACKGROUNDS -->
 <div class="aurora-bg" id="aurora-bg">
   <div class="aurora-blob aurora-blob-1"></div>
@@ -659,6 +705,40 @@ document.addEventListener('mousemove', (e) => {
   const y = (window.innerHeight - e.clientY * 2) / 60;
   auroraBg.style.transform = `translate(${x}px, ${y}px)`;
 });
+
+// Audio Controller
+const music = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-btn');
+let firstInteract = false;
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play().then(() => {
+      musicBtn.classList.add('playing');
+      musicBtn.innerHTML = '<i data-lucide="music-2"></i>';
+      lucide.createIcons();
+    }).catch(err => console.log("Playback failed:", err));
+  } else {
+    music.pause();
+    musicBtn.classList.remove('playing');
+    musicBtn.innerHTML = '<i data-lucide="music"></i>';
+    lucide.createIcons();
+  }
+}
+
+musicBtn.addEventListener('click', toggleMusic);
+
+// Autoplay bypass on first user click on page
+document.addEventListener('click', () => {
+  if (!firstInteract) {
+    firstInteract = true;
+    music.play().then(() => {
+      musicBtn.classList.add('playing');
+      musicBtn.innerHTML = '<i data-lucide="music-2"></i>';
+      lucide.createIcons();
+    }).catch(e => console.log("Autoplay blocked:", e));
+  }
+}, { once: true });
 
 // Stars
 const starsEl = document.getElementById('stars');
