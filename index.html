@@ -444,6 +444,33 @@
       display: none;
     }
 
+    /* PHOTO GALLERY CAROUSEL */
+    .photo-gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 12px;
+      width: 100%;
+      border-radius: 14px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(192, 132, 252, 0.35) rgba(255, 255, 255, 0.02);
+    }
+    .photo-gallery::-webkit-scrollbar {
+      height: 5px;
+    }
+    .photo-gallery::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+    .photo-gallery::-webkit-scrollbar-thumb {
+      background: rgba(192, 132, 252, 0.35);
+      border-radius: 10px;
+    }
+    .photo-gallery .photo-slot {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+    }
+
     /* ── FINAL ── */
     .final-section {
       position: relative;
@@ -724,12 +751,27 @@
           <h3 class="milestone-title">Khóa luận & Cán đích</h3>
           <p class="milestone-desc">Những tháng ngày cuối cùng căng thẳng nhất — nhưng bạn đã vượt lên tất cả. Bảo vệ
             thành công khóa luận và sẵn sàng sải cánh bay xa.</p>
-          <div class="photo-slot">
-            <img src="assets/images/nam-4.jpg" alt="Ảnh tốt nghiệp">
-            <div class="placeholder">
-              <i data-lucide="camera" class="placeholder-icon"></i>
-              <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ:
-                  src="assets/images/nam-4.jpg"</em></span>
+          <div class="photo-gallery">
+            <div class="photo-slot">
+              <img src="assets/images/nam-4.jpg" alt="Ảnh tốt nghiệp 1">
+              <div class="placeholder">
+                <i data-lucide="camera" class="placeholder-icon"></i>
+                <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="assets/images/nam-4.jpg"</em></span>
+              </div>
+            </div>
+            <div class="photo-slot">
+              <img src="assets/images/nam-4-1.jpg" alt="Ảnh tốt nghiệp 2">
+              <div class="placeholder">
+                <i data-lucide="camera" class="placeholder-icon"></i>
+                <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="assets/images/nam-4-1.jpg"</em></span>
+              </div>
+            </div>
+            <div class="photo-slot">
+              <img src="assets/images/nam-4-2.jpg" alt="Ảnh tốt nghiệp 3">
+              <div class="placeholder">
+                <i data-lucide="camera" class="placeholder-icon"></i>
+                <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="assets/images/nam-4-2.jpg"</em></span>
+              </div>
             </div>
           </div>
         </div>
