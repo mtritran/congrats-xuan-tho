@@ -4,14 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chúc mừng tốt nghiệp – Xuân Thọ 🎓</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
 <style>
+  :root {
+    --bg-dark: #07000d;
+    --primary: #c084fc;
+    --primary-glow: rgba(192, 132, 252, 0.4);
+    --secondary: #f472b6;
+    --text-main: #f3e8ff;
+    --text-muted: #c0b3d6;
+    --card-bg: rgba(17, 10, 28, 0.45);
+    --card-border: rgba(192, 132, 252, 0.15);
+    --font-title: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #0d0010;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    color: #f0e0ff;
+    background: var(--bg-dark);
+    font-family: var(--font-body);
+    color: var(--text-main);
     overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ── AURORA BACKGROUND ── */
+  .aurora-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    filter: blur(120px);
+    opacity: 0.5;
+  }
+  .aurora-blob {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    animation: float-blob 22s infinite alternate ease-in-out;
+  }
+  .aurora-blob-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(0,0,0,0) 70%);
+    top: -10%;
+    left: -5%;
+    animation-duration: 18s;
+  }
+  .aurora-blob-2 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.28) 0%, rgba(0,0,0,0) 70%);
+    bottom: -15%;
+    right: -10%;
+    animation-duration: 24s;
+    animation-delay: -6s;
+  }
+  .aurora-blob-3 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.22) 0%, rgba(0,0,0,0) 70%);
+    top: 35%;
+    left: 25%;
+    animation-duration: 20s;
+    animation-delay: -10s;
+  }
+
+  @keyframes float-blob {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+      transform: translate(60px, 40px) scale(1.08) rotate(180deg);
+    }
+    100% {
+      transform: translate(-30px, -60px) scale(0.92) rotate(360deg);
+    }
   }
 
   /* ── STARS ── */
@@ -19,7 +97,7 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: 1;
     overflow: hidden;
   }
   .star {
@@ -30,14 +108,14 @@
     animation: twinkle var(--d, 3s) ease-in-out var(--delay, 0s) infinite;
   }
   @keyframes twinkle {
-    0%,100% { opacity: 0; }
-    50%      { opacity: var(--op, 0.6); }
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50%      { opacity: var(--op, 0.6); transform: scale(1.2); }
   }
 
   /* ── HERO ── */
   .hero {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -46,99 +124,127 @@
     text-align: center;
     padding: 2rem;
   }
-  .hero-badge {
-    font-size: 13px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #d48cff;
+  .hero-badge-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(192, 132, 252, 0.1);
+    border: 1px solid rgba(192, 132, 252, 0.2);
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
     margin-bottom: 1.5rem;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.3s forwards;
+    backdrop-filter: blur(8px);
+  }
+  .hero-badge-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--primary);
+    animation: pulse-slow 2s infinite ease-in-out;
+  }
+  .hero-badge {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #e8d5ff;
+    font-weight: 500;
   }
   .hero-name {
-    font-size: clamp(2.6rem, 9vw, 5rem);
-    font-weight: 600;
-    background: linear-gradient(135deg, #f9a8d4, #c084fc, #a855f7);
+    font-family: var(--font-title);
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd4f3, #e2b4ff, #a855f7, #f472b6);
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1.1;
     opacity: 0;
-    animation: fadeUp 0.9s ease 0.6s forwards;
-    margin-bottom: 0.6rem;
+    animation: fadeUp 0.9s ease 0.6s forwards, gradient-flow 12s infinite alternate ease-in-out;
+    margin-bottom: 0.8rem;
+    letter-spacing: -1px;
   }
   .hero-school {
-    font-size: 1rem;
-    color: #c4a0e8;
+    font-size: 1.15rem;
+    color: #d8c0f5;
+    font-weight: 400;
     opacity: 0;
     animation: fadeUp 0.9s ease 0.9s forwards;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
   }
   .hero-sub {
-    font-size: 1.1rem;
-    color: #e0c4ff;
+    font-size: 1.05rem;
+    color: var(--text-muted);
     opacity: 0;
     animation: fadeUp 0.9s ease 1.1s forwards;
-    max-width: 400px;
+    max-width: 450px;
     line-height: 1.8;
   }
   .scroll-hint {
     position: absolute;
-    bottom: 2rem;
+    bottom: 2.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     opacity: 0;
     animation: fadeIn 1s ease 2s forwards;
-    color: #9b59d0;
+    color: var(--primary);
     font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
   }
   .scroll-hint .arrow {
-    width: 16px;
-    height: 16px;
-    border-right: 2px solid #9b59d0;
-    border-bottom: 2px solid #9b59d0;
+    width: 14px;
+    height: 14px;
+    border-right: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
     transform: rotate(45deg);
-    animation: bounce 1.5s ease infinite;
+    animation: bounce-arrow 1.6s ease infinite;
+    margin-top: 4px;
   }
 
   /* ── TIMELINE ── */
   .timeline-section {
     position: relative;
-    z-index: 1;
-    padding: 5rem 1.5rem 2rem;
-    max-width: 720px;
+    z-index: 2;
+    padding: 6rem 1.5rem 2rem;
+    max-width: 760px;
     margin: 0 auto;
   }
   .section-label {
     text-align: center;
-    font-size: 13px;
-    letter-spacing: 3px;
+    font-family: var(--font-title);
+    font-size: 14px;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    color: #9b59d0;
+    color: var(--primary);
+    font-weight: 600;
     margin-bottom: 4rem;
+    text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
   }
   .timeline {
     position: relative;
-    padding-left: 2.8rem;
+    padding-left: 3rem;
   }
   .timeline::before {
     content: '';
     position: absolute;
-    left: 0.65rem;
+    left: 0.7rem;
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(180deg, #9b59d0 0%, #f472b6 100%);
+    background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 50%, rgba(59, 130, 246, 0.5) 100%);
     opacity: 0.35;
   }
   .milestone {
     position: relative;
-    margin-bottom: 4rem;
+    margin-bottom: 4.5rem;
     opacity: 0;
-    transform: translateX(-28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateX(-35px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .milestone.visible {
     opacity: 1;
@@ -146,56 +252,99 @@
   }
   .milestone-dot {
     position: absolute;
-    left: -2.2rem;
-    top: 0.35rem;
-    width: 14px;
-    height: 14px;
+    left: -2.3rem;
+    top: 2rem;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #c084fc, #f472b6);
-    box-shadow: 0 0 14px #c084fc99;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 0 15px var(--primary-glow);
+    border: 2px solid var(--bg-dark);
+    z-index: 2;
+  }
+  
+  /* GLASS CARDS FOR MILESTONES */
+  .milestone-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2.2rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .milestone-card:hover {
+    transform: translateY(-6px);
+    background: rgba(26, 16, 42, 0.55);
+    border-color: rgba(192, 132, 252, 0.35);
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .milestone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
   }
   .milestone-year {
+    font-family: var(--font-title);
     font-size: 11px;
-    color: #c084fc;
+    color: var(--primary);
+    font-weight: 600;
     letter-spacing: 2px;
-    margin-bottom: 0.4rem;
   }
-  .milestone-emoji {
-    font-size: 1.5rem;
-    display: block;
-    margin-bottom: 0.3rem;
+  .milestone-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: rgba(192, 132, 252, 0.1);
+    border: 1px solid rgba(192, 132, 252, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+  }
+  .milestone-icon-box svg {
+    width: 20px;
+    height: 20px;
   }
   .milestone-title {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #f0d8ff;
-    margin-bottom: 0.5rem;
+    font-family: var(--font-title);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #f7efff;
+    margin-bottom: 0.6rem;
   }
   .milestone-desc {
     font-size: 0.95rem;
-    color: #c4a0e8;
-    line-height: 1.75;
-    margin-bottom: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
   }
 
   /* ── PHOTO SLOT ── */
   .photo-slot {
     width: 100%;
-    max-width: 480px;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/10;
     border-radius: 14px;
     overflow: hidden;
-    border: 1.5px solid rgba(192, 132, 252, 0.25);
-    background: rgba(120, 60, 180, 0.12);
+    border: 1px solid rgba(192, 132, 252, 0.15);
+    background: rgba(12, 6, 20, 0.6);
     position: relative;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
   }
   .photo-slot img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.5s ease;
   }
-  /* Placeholder shown when src is not replaced yet */
+  .photo-slot:hover img {
+    transform: scale(1.03);
+  }
+  /* Placeholder */
   .photo-slot .placeholder {
     position: absolute;
     inset: 0;
@@ -203,16 +352,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    color: #9b59d0;
+    gap: 12px;
+    color: #a78bfa;
     font-size: 13px;
     text-align: center;
-    padding: 1rem;
+    padding: 1.5rem;
     pointer-events: none;
   }
   .photo-slot .placeholder-icon {
-    font-size: 2.2rem;
-    opacity: 0.5;
+    color: var(--primary);
+    opacity: 0.6;
+    animation: bounce-arrow 2s infinite ease-in-out;
   }
   .photo-slot img[src=""] + .placeholder,
   .photo-slot img:not([src]) + .placeholder {
@@ -225,49 +375,79 @@
   /* ── FINAL ── */
   .final-section {
     position: relative;
-    z-index: 1;
-    padding: 3rem 1.5rem 6rem;
+    z-index: 2;
+    padding: 5rem 1.5rem 8rem;
     text-align: center;
-    max-width: 600px;
+    max-width: 620px;
     margin: 0 auto;
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    transform: translateY(35px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .final-section.visible {
     opacity: 1;
     transform: translateY(0);
   }
-  .final-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+  .final-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+    border: 1px solid rgba(192, 132, 252, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
+  }
+  .final-icon-lucide {
+    width: 40px;
+    height: 40px;
+    color: var(--primary);
+  }
   .final-title {
-    font-size: clamp(1.6rem, 5vw, 2.5rem);
-    font-weight: 600;
-    background: linear-gradient(135deg, #f9a8d4, #c084fc);
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd3f1, #c084fc, #818cf8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     line-height: 1.3;
+    letter-spacing: -0.5px;
   }
   .final-msg {
-    font-size: 1rem;
-    color: #d4b0f0;
+    font-size: 1.05rem;
+    color: var(--text-muted);
     line-height: 1.9;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
   .confetti-btn {
-    background: linear-gradient(135deg, #9333ea, #ec4899);
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
     color: #fff;
     border: none;
-    padding: 0.85rem 2.2rem;
+    padding: 0.95rem 2.6rem;
     border-radius: 100px;
-    font-size: 1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: var(--font-title);
+    letter-spacing: 0.5px;
     cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: transform 0.2s, opacity 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .confetti-btn:hover { opacity: 0.88; transform: scale(1.04); }
-  .confetti-btn:active { transform: scale(0.97); }
+  .confetti-btn:hover { 
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.55), 0 0 10px rgba(236, 72, 153, 0.3);
+    transform: translateY(-3px) scale(1.02);
+    filter: brightness(1.08);
+  }
+  .confetti-btn:active { 
+    transform: translateY(-1px) scale(0.98); 
+  }
 
   /* ── CONFETTI ── */
   #confetti-canvas {
@@ -277,26 +457,46 @@
     z-index: 999;
   }
 
-  /* ── KEYFRAMES ── */
+  /* ── ANIMATIONS KEYFRAMES ── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(22px); }
+    from { opacity: 0; transform: translateY(30px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeIn { to { opacity: 1; } }
-  @keyframes bounce {
-    0%,100% { transform: rotate(45deg) translateY(0); }
-    50%      { transform: rotate(45deg) translateY(6px); }
+  @keyframes bounce-arrow {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); }
+    50%      { transform: rotate(45deg) translate(5px, 5px); }
+  }
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50%      { opacity: 1; transform: scale(1.15); }
+  }
+  @keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 </style>
 </head>
 <body>
 
 <canvas id="confetti-canvas"></canvas>
+
+<!-- AURORA BACKGROUNDS -->
+<div class="aurora-bg">
+  <div class="aurora-blob aurora-blob-1"></div>
+  <div class="aurora-blob aurora-blob-2"></div>
+  <div class="aurora-blob aurora-blob-3"></div>
+</div>
+
 <div class="stars" id="stars"></div>
 
 <!-- HERO -->
 <div class="hero">
-  <p class="hero-badge">🎓 Chúc mừng tốt nghiệp</p>
+  <div class="hero-badge-container">
+    <i data-lucide="graduation-cap" class="hero-badge-icon"></i>
+    <p class="hero-badge">Chúc mừng tốt nghiệp</p>
+  </div>
   <h1 class="hero-name">Xuân Thọ</h1>
   <p class="hero-school">Đại học Kinh tế Đà Nẵng</p>
   <p class="hero-sub">Cuộn xuống để nhìn lại hành trình<br>đáng tự hào của bạn ✨</p>
@@ -308,22 +508,28 @@
 
 <!-- TIMELINE -->
 <div class="timeline-section">
-  <p class="section-label">Hành trình 4 năm</p>
+  <p class="section-label">Hành trình 4 năm học tập</p>
   <div class="timeline">
 
     <!-- Mốc 1 -->
     <div class="milestone" data-delay="0">
       <div class="milestone-dot"></div>
-      <p class="milestone-year">NĂM NHẤT · 2021</p>
-      <span class="milestone-emoji">🌱</span>
-      <h3 class="milestone-title">Ngày đầu bước vào giảng đường</h3>
-      <p class="milestone-desc">Balo mới, sổ tay mới, và một trái tim đầy háo hức. Đà Nẵng chào đón một sinh viên Kinh tế đầy tiềm năng.</p>
-      <!-- ĐỔI ẢNH: thay src="" bằng đường dẫn ảnh của bạn, ví dụ src="anh1.jpg" -->
-      <div class="photo-slot">
-        <img src="" alt="Ảnh năm nhất">
-        <div class="placeholder">
-          <span class="placeholder-icon">📷</span>
-          <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-1.jpg"</em></span>
+      <div class="milestone-card">
+        <div class="milestone-header">
+          <p class="milestone-year">NĂM NHẤT · 2021</p>
+          <div class="milestone-icon-box">
+            <i data-lucide="sprout"></i>
+          </div>
+        </div>
+        <h3 class="milestone-title">Ngày đầu bước vào giảng đường</h3>
+        <p class="milestone-desc">Balo mới, sổ tay mới, và một trái tim đầy háo hức. Đà Nẵng chào đón một sinh viên Kinh tế đầy tiềm năng với những hoài bão lớn.</p>
+        <!-- ĐỔI ẢNH: thay src="" bằng đường dẫn ảnh của bạn, ví dụ src="anh1.jpg" -->
+        <div class="photo-slot">
+          <img src="" alt="Ảnh năm nhất">
+          <div class="placeholder">
+            <i data-lucide="camera" class="placeholder-icon"></i>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-1.jpg"</em></span>
+          </div>
         </div>
       </div>
     </div>
@@ -331,50 +537,68 @@
     <!-- Mốc 2 -->
     <div class="milestone" data-delay="100">
       <div class="milestone-dot"></div>
-      <p class="milestone-year">NĂM HAI · 2022</p>
-      <span class="milestone-emoji">📚</span>
-      <h3 class="milestone-title">Những đêm thức khuya ôn thi</h3>
-      <p class="milestone-desc">Cà phê, bài tập nhóm, deadline chồng deadline. Bạn vẫn vượt qua tất cả — một cách đáng kinh ngạc.</p>
-      <!-- ĐỔI ẢNH: src="anh2.jpg" -->
-      <div class="photo-slot">
-        <img src="" alt="Ảnh năm hai">
-        <div class="placeholder">
-          <span class="placeholder-icon">📷</span>
-          <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-2.jpg"</em></span>
+      <div class="milestone-card">
+        <div class="milestone-header">
+          <p class="milestone-year">NĂM HAI · 2022</p>
+          <div class="milestone-icon-box">
+            <i data-lucide="book-open"></i>
+          </div>
+        </div>
+        <h3 class="milestone-title">Những đêm thức khuya ôn thi</h3>
+        <p class="milestone-desc">Cà phê, bài tập nhóm, deadline chồng deadline. Bạn vẫn kiên cường vượt qua tất cả một cách vô cùng đáng kinh ngạc.</p>
+        <!-- ĐỔI ẢNH: src="anh2.jpg" -->
+        <div class="photo-slot">
+          <img src="" alt="Ảnh năm hai">
+          <div class="placeholder">
+            <i data-lucide="camera" class="placeholder-icon"></i>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-2.jpg"</em></span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Mốc 3 -->
-    <div class="milestone" data-delay="200">
+    <div class="milestone" data-delay="150">
       <div class="milestone-dot"></div>
-      <p class="milestone-year">NĂM BA · 2023</p>
-      <span class="milestone-emoji">💡</span>
-      <h3 class="milestone-title">Trưởng thành từng ngày</h3>
-      <p class="milestone-desc">Thực tập, đồ án, những bài học không có trong sách giáo khoa. Bạn dần hiểu mình muốn gì ở tương lai.</p>
-      <!-- ĐỔI ẢNH: src="anh3.jpg" -->
-      <div class="photo-slot">
-        <img src="" alt="Ảnh năm ba">
-        <div class="placeholder">
-          <span class="placeholder-icon">📷</span>
-          <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-3.jpg"</em></span>
+      <div class="milestone-card">
+        <div class="milestone-header">
+          <p class="milestone-year">NĂM BA · 2023</p>
+          <div class="milestone-icon-box">
+            <i data-lucide="lightbulb"></i>
+          </div>
+        </div>
+        <h3 class="milestone-title">Trưởng thành từng ngày</h3>
+        <p class="milestone-desc">Kỳ thực tập thử thách, những đồ án chuyên ngành phức tạp và những bài học thực tế quý báu. Bạn dần tìm thấy định hướng rõ nét cho tương lai.</p>
+        <!-- ĐỔI ẢNH: src="anh3.jpg" -->
+        <div class="photo-slot">
+          <img src="" alt="Ảnh năm ba">
+          <div class="placeholder">
+            <i data-lucide="camera" class="placeholder-icon"></i>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-nam-3.jpg"</em></span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Mốc 4 -->
-    <div class="milestone" data-delay="300">
+    <div class="milestone" data-delay="200">
       <div class="milestone-dot"></div>
-      <p class="milestone-year">NĂM TƯ · 2024–2025</p>
-      <span class="milestone-emoji">🏆</span>
-      <h3 class="milestone-title">Khóa luận & cán đích</h3>
-      <p class="milestone-desc">Những tháng cuối cùng căng thẳng nhất — nhưng bạn đã làm được. Bảo vệ thành công và sẵn sàng bay cao.</p>
-      <!-- ĐỔI ẢNH: src="anh4.jpg" -->
-      <div class="photo-slot">
-        <img src="" alt="Ảnh tốt nghiệp">
-        <div class="placeholder">
-          <span class="placeholder-icon">📷</span>
-          <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-tot-nghiep.jpg"</em></span>
+      <div class="milestone-card">
+        <div class="milestone-header">
+          <p class="milestone-year">NĂM TƯ · 2024–2025</p>
+          <div class="milestone-icon-box">
+            <i data-lucide="award"></i>
+          </div>
+        </div>
+        <h3 class="milestone-title">Khóa luận & Cán đích</h3>
+        <p class="milestone-desc">Những tháng ngày cuối cùng căng thẳng nhất — nhưng bạn đã vượt lên tất cả. Bảo vệ thành công khóa luận và sẵn sàng sải cánh bay xa.</p>
+        <!-- ĐỔI ẢNH: src="anh4.jpg" -->
+        <div class="photo-slot">
+          <img src="" alt="Ảnh tốt nghiệp">
+          <div class="placeholder">
+            <i data-lucide="camera" class="placeholder-icon"></i>
+            <span>Thay <code>src=""</code> bằng đường dẫn ảnh của bạn<br><em>ví dụ: src="anh-tot-nghiep.jpg"</em></span>
+          </div>
         </div>
       </div>
     </div>
@@ -384,30 +608,38 @@
 
 <!-- FINAL -->
 <div class="final-section" id="final">
-  <div class="final-icon">🎓✨</div>
+  <div class="final-icon-wrapper">
+    <i data-lucide="graduation-cap" class="final-icon-lucide"></i>
+  </div>
   <h2 class="final-title">Chúc mừng tốt nghiệp,<br>Xuân Thọ!</h2>
   <p class="final-msg">
-    4 năm không phải là ít. Đó là hàng trăm sáng sớm đến giảng đường,<br>
-    hàng chục đêm thức trắng, và vô số khoảnh khắc bạn tự nhủ<br>
-    <em>"mình làm được"</em> — và bạn đã làm được thật. 💜
+    Hành trình 4 năm qua là minh chứng cho sự nỗ lực không ngừng nghỉ.<br>
+    Đó là những buổi sáng tinh mơ đến lớp, những đêm muộn thức trắng ôn thi,<br>
+    và vô số lần bạn tự nhủ bản thân <em>"mình làm được"</em> — và bạn đã làm được xuất sắc! 💜
   </p>
-  <button class="confetti-btn" onclick="launchConfetti()">🎉 Bắn pháo hoa mừng bạn!</button>
+  <button class="confetti-btn" onclick="launchConfetti()">
+    <i data-lucide="party-popper"></i>
+    Bắn pháo hoa mừng bạn!
+  </button>
 </div>
 
 <script>
+// Initialize Lucide Icons
+lucide.createIcons();
+
 // Stars
 const starsEl = document.getElementById('stars');
-for (let i = 0; i < 90; i++) {
+for (let i = 0; i < 70; i++) {
   const s = document.createElement('div');
   s.className = 'star';
-  const size = Math.random() * 2.5 + 1;
+  const size = Math.random() * 2.2 + 0.8;
   s.style.cssText = `
     width:${size}px; height:${size}px;
     left:${Math.random()*100}%;
     top:${Math.random()*100}%;
-    --d:${(Math.random()*3+2).toFixed(1)}s;
-    --delay:${(Math.random()*5).toFixed(1)}s;
-    --op:${(Math.random()*0.5+0.3).toFixed(2)};
+    --d:${(Math.random()*3+2.5).toFixed(1)}s;
+    --delay:${(Math.random()*6).toFixed(1)}s;
+    --op:${(Math.random()*0.5+0.25).toFixed(2)};
   `;
   starsEl.appendChild(s);
 }
@@ -421,7 +653,7 @@ const observer = new IntersectionObserver(entries => {
       observer.unobserve(e.target);
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.12 });
 
 document.querySelectorAll('.milestone, .final-section').forEach(el => observer.observe(el));
 
@@ -440,18 +672,18 @@ window.addEventListener('resize', resize);
 
 function launchConfetti() {
   particles = [];
-  const colors = ['#c084fc','#f472b6','#e879f9','#f9a8d4','#a855f7','#fbbf24','#ffffff','#818cf8'];
-  for (let i = 0; i < 200; i++) {
+  const colors = ['#c084fc','#f472b6','#e879f9','#f9a8d4','#a855f7','#fbbf24','#ffffff','#818cf8','#60a5fa'];
+  for (let i = 0; i < 220; i++) {
     particles.push({
       x: Math.random() * canvas.width,
       y: -10 - Math.random() * 300,
-      w: Math.random() * 9 + 4,
+      w: Math.random() * 8 + 4,
       h: Math.random() * 5 + 3,
       color: colors[Math.floor(Math.random() * colors.length)],
-      vx: (Math.random() - 0.5) * 3.5,
-      vy: Math.random() * 3.5 + 1.5,
+      vx: (Math.random() - 0.5) * 4,
+      vy: Math.random() * 4 + 2,
       rot: Math.random() * 360,
-      rotSpeed: (Math.random() - 0.5) * 7,
+      rotSpeed: (Math.random() - 0.5) * 8,
       opacity: 1
     });
   }
@@ -466,7 +698,7 @@ function animate() {
     p.x += p.vx;
     p.y += p.vy;
     p.rot += p.rotSpeed;
-    if (p.y > canvas.height * 0.65) p.opacity -= 0.018;
+    if (p.y > canvas.height * 0.7) p.opacity -= 0.015;
     ctx.save();
     ctx.globalAlpha = p.opacity;
     ctx.translate(p.x, p.y);
